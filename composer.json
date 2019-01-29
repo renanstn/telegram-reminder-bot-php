@@ -1,5 +1,8 @@
 {
-	"require" : {
-		"telegram-bot/api" : "^2.3"
-	}
+    "name": "telegram-reminder/telegram-reminder",
+    "type": "project",
+    "require": {
+        "php": ">=5.5",
+        "longman/telegram-bot": "*"
+    }
 }
