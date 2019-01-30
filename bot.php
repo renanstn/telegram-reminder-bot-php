@@ -12,7 +12,10 @@ $updates = json_decode($updates, TRUE);
 $text = $updates['message']['text'];
 $chatId = $updates['message']['chat']['id'];
 
+sendMessage($chatId, $text);
+
 function sendMessage($chatId, $text) {
-    $url = $GLOBALS[website] . "/sendMessage?chat_id=" . $chatId . "&text=".urlencode($text);
+    $message = urlencode($text);
+    $url = $GLOBALS[website]."/sendMessage?chat_id=$chatId&text=$message";
     file_get_contents($url);
 }
