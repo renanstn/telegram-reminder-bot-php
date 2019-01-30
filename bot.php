@@ -1,13 +1,18 @@
 <?php
 
-require_once('vendor/autoload.php');
+$config = parse_ini_file('config.ini');
+$token = $config['token'];
+$website = "https://api.telegram.org/bot".$token;
 
-use TelegramBot\Api\BotApi;
+// Receber o POST do webhook
+$updates = file_get_contents("php://input");
+$updates = json_decode($updates, TRUE);
 
-$config = parse_ini_file("./config.ini");
+// Identificar a mensagem e o id do chat
+$text = $updates['message']['text'];
+$chatId = $updates['message']['chat']['id'];
 
-$botId  = $config['botId'];
-$chatId = $config['chatId'];
-
-$bot = new BotApi($botId);
-$bot->sendMessage($chatId, "Oieeeee");
+function sendMessage($chatId, $text) {
+    $url = $GLOBALS[website] . "/sendMessage?chat_id=" . $chatId . "&text=".urlencode($text);
+    file_get_contents($url);
+}
