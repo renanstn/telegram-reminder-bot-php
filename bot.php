@@ -48,7 +48,8 @@ function recognizer($text) {
     $regex_msg      = '/^[^,]*/m';
 
     $has_date       = preg_match($regex_date, $text, $date);
-    $has_tomorrow   = preg_match($regex_tomorrow, $text, $tomorrow);
+    $has_tomorrow   = preg_match($regex_tomorrow, $text);
+    $has_today      = preg_match($regex_today, $text);
     $has_hour       = preg_match($regex_hour, $text, $hour);
     $has_reminder   = preg_match($regex_msg, $text, $reminder);
 
