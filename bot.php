@@ -1,7 +1,7 @@
 <?php
 
-require "connect.php";
-require "functions.php";
+require_once("connect.php");
+require_once("functions.php");
 
 $config     = parse_ini_file('config.ini');
 $token      = $config['token'];
