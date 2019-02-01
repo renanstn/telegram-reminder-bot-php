@@ -14,7 +14,7 @@ function recognizer($text) {
     $regex_date     = '/\d{2}\/\d{2}\/\d{4}/m';
     $regex_tomorrow = '/amanhã|amanha/m';
     $regex_today    = '/hoje/m';
-    $regex_hour     = '/\d{2}:\d{2}/m';
+    $regex_hour     = '/\d{1,2}:\d{2}/m';
     $regex_msg      = '/^[^,]*/m';
 
     $has_date       = preg_match($regex_date, $text, $date);
@@ -62,11 +62,17 @@ function what_day_is_today() {
 function saveReminder($chatId, $data) {
 
     require "connect.php";
+    extract($data);
 
-    $date_time = format_date_hour($data['date'], $data['hour']);
-    $sql = "INSERT INTO reminders (chat_id, date_hour, content) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$chatId, $date_time, $data['reminder']]);
+    $date_time = format_date_hour($date, $hour);
+    $sql    = "INSERT INTO reminders (chat_id, date_hour, content) VALUES (:chat_id, :data_hora, :reminder)";
+    $stmt   = $conn->prepare($sql);
+    $teste = $stmt->execute([
+        ':chat_id'      => $chatId,
+        ':data_hora'    => $date_time,
+        ':reminder'     => $reminder
+    ]);
+    sendMessage($chatId, $teste);
 }
 
 function format_date_hour($date, $hour) {
