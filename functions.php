@@ -59,9 +59,8 @@ function what_day_is_today() {
     return $return;
 }
 
-function saveReminder($chatId, $data) {
+function saveReminder($chatId, $data, $conn) {
 
-    require "connect.php";
     extract($data);
 
     $date_time = format_date_hour($date, $hour);

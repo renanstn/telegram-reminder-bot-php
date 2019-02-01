@@ -1,5 +1,6 @@
 <?php
 
+require "connect.php";
 require "functions.php";
 
 $config     = parse_ini_file('config.ini');
@@ -23,7 +24,7 @@ if ($data) {
     extract($data);
     if (hourIsValid($hour)) {
         $response = "Lembrete adicionado: \n'$reminder', \ndia $date,\n às $hour.";
-        saveReminder($chatId, $data);
+        saveReminder($chatId, $data, $conn);
     } else {
         $response = "Por favor, utilize minutos arredondados para seus lembretes.";
     }
