@@ -19,7 +19,7 @@ $response   = "";
 // Verificar resposta e armazenar
 if ($data) {
     extract($data);
-    $response = "Lembrete adicionado: '$reminder', dia $date, às $hour.";
+    $response = "Lembrete adicionado: \n'$reminder', \ndia $date,\n às $hour.";
     saveReminder($data);
 } else {
     $response = "Não conseguimos identificar o que você disse.";
