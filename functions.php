@@ -66,12 +66,11 @@ function saveReminder($chatId, $data, $conn) {
     $date_time = format_date_hour($date, $hour);
     $sql    = "INSERT INTO reminders (chat_id, date_hour, content) VALUES (:chat_id, :data_hora, :reminder)";
     $stmt   = $conn->prepare($sql);
-    $teste = $stmt->execute([
+    $stmt->execute([
         ':chat_id'      => $chatId,
         ':data_hora'    => $date_time,
         ':reminder'     => $reminder
     ]);
-    sendMessage($chatId, $teste);
 }
 
 function format_date_hour($date, $hour) {
