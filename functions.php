@@ -1,7 +1,5 @@
 <?php
 
-require "connect.php";
-
 function sendMessage($chatId, $text) {
 
     $message = urlencode($text);
@@ -62,6 +60,8 @@ function what_day_is_today() {
 }
 
 function saveReminder($chatId, $data) {
+
+    require "connect.php";
 
     $date_time = format_date_hour($data['date'], $data['hour']);
     $sql = "INSERT INTO reminders (chat_id, date_hour, content) VALUES (?, ?, ?)";
