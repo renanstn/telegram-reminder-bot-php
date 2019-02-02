@@ -84,3 +84,8 @@ function hourIsValid($hour) {
 
     return substr($hour, -1) == "0";
 }
+
+function checkReminders() {
+
+    
+}
