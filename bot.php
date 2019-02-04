@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Sao_Paulo');
+
 require_once("connect.php");
 require_once("functions.php");
 

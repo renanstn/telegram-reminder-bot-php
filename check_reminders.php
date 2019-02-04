@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Sao_Paulo');
+
 require_once("connect.php");
 require_once("functions.php");
 
@@ -9,11 +11,9 @@ $website    = "https://api.telegram.org/bot$token";
 
 $dateTime       = new DateTime();
 $date           = $dateTime->format('Y-m-d');
-$initialTime    = $dateTime->modify('+10 hours'); // Correção fuso horário
-$initialTime    = $dateTime->format('h:i');
-$finalTime      = $dateTime->modify('+10 hours');  // Correção fuso horário
+$initialTime    = $dateTime->format('H:i');
 $finalTime      = $dateTime->modify('+10 minutes');
-$finalTime      = $dateTime->format('h:i');
+$finalTime      = $dateTime->format('H:i');
 
 $reminders      = checkReminders($date, $initialTime, $finalTime, $conn);
 
