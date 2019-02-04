@@ -24,12 +24,8 @@ $response   = "";
 // Verificar resposta e armazenar
 if ($data) {
     extract($data);
-    if (hourIsValid($hour)) {
-        $response = "Lembrete adicionado: \n'$reminder', \ndia $date,\n às $hour.";
-        saveReminder($chatId, $data, $conn);
-    } else {
-        $response = "Por favor, utilize minutos arredondados para seus lembretes.";
-    }
+    $response = "Lembrete adicionado: \n'$reminder', \ndia $date,\n às $hour.";
+    saveReminder($chatId, $data, $conn);
 } else {
     $response = "Não conseguimos identificar o que você disse.";
 }

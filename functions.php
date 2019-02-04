@@ -83,11 +83,6 @@ function format_date_hour($date, $hour) {
 
 }
 
-function hourIsValid($hour) {
-
-    return substr($hour, -1) == "0";
-}
-
 function checkReminders($date, $initialTime, $finalTime, $conn) {
 
     // Formatar data e hora
