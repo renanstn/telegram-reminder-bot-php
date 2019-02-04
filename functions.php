@@ -64,8 +64,11 @@ function saveReminder($chatId, $data, $conn) {
     extract($data);
 
     $date_time = format_date_hour($date, $hour);
-    $sql    = "INSERT INTO reminders (chat_id, date_hour, content) VALUES (:chat_id, :data_hora, :reminder)";
-    $stmt   = $conn->prepare($sql);
+    $sql = "
+        INSERT INTO reminders (chat_id, date_hour, content) 
+        VALUES (:chat_id, :data_hora, :reminder)
+    ";
+    $stmt = $conn->prepare($sql);
     $stmt->execute([
         ':chat_id'      => $chatId,
         ':data_hora'    => $date_time,
@@ -85,7 +88,25 @@ function hourIsValid($hour) {
     return substr($hour, -1) == "0";
 }
 
-function checkReminders() {
+function checkReminders($date, $initialTime, $finalTime, $conn) {
 
-    
+    // Formatar data e hora
+    $date_time_init     = $date.' '.$initialTime.':00';
+    $date_time_final    = $date.' '.$finalTime.':00';
+
+    $sql = "
+        SELECT 
+            chat_id,
+            content
+        FROM 
+            reminders
+        WHERE 1=1
+            AND date_hour BETWEEN '$date_time_init' AND '$date_time_final'
+    ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $result;
 }
