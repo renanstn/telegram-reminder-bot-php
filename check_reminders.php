@@ -14,6 +14,9 @@ $date           = $dateTime->format('Y-m-d');
 $initialTime    = $dateTime->format('H:i');
 $finalTime      = $dateTime->modify('+9 minutes');
 $finalTime      = $dateTime->format('H:i');
+/* Considera os lembretes do horário atual até os próximos 9
+minutos. Pois este script é chamado a cada 10 minutos pelo
+000webhost. */
 
 $reminders      = checkReminders($date, $initialTime, $finalTime, $conn);
 
