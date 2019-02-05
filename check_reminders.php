@@ -12,7 +12,7 @@ $website    = "https://api.telegram.org/bot$token";
 $dateTime       = new DateTime();
 $date           = $dateTime->format('Y-m-d');
 $initialTime    = $dateTime->format('H:i');
-$finalTime      = $dateTime->modify('+10 minutes');
+$finalTime      = $dateTime->modify('+9 minutes');
 $finalTime      = $dateTime->format('H:i');
 
 $reminders      = checkReminders($date, $initialTime, $finalTime, $conn);
