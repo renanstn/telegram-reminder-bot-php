@@ -14,7 +14,7 @@ function recognizer($text) {
     $regex_date     = '/\d{2}\/\d{2}\/\d{4}/m';
     $regex_tomorrow = '/amanhã|amanha/m';
     $regex_today    = '/hoje/m';
-    $regex_hour     = '/\d{1,2}:\d{2}/m';
+    $regex_hour     = '/\d{1,2}[h|:]\d{2}/m';
     $regex_msg      = '/^[^,]*/m';
 
     $has_date       = preg_match($regex_date, $text, $date);
@@ -36,7 +36,7 @@ function recognizer($text) {
     if ($has_date && $has_hour && $has_reminder) {
         $return = [
             'date'      => $date[0],
-            'hour'      => $hour[0],
+            'hour'      => str_replace('h', ':', $hour[0]),
             'reminder'  => $reminder[0],
         ];
     }
