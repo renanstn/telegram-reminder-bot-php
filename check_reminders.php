@@ -20,6 +20,8 @@ minutos. Pois este script é chamado a cada 10 minutos pelo
 
 $reminders      = checkReminders($date, $initialTime, $finalTime, $conn);
 
+saveLog($reminders, $initialTime, $finalTime);
+
 if (count($reminders)) {
     foreach ($reminders as $reminder) {
         $chatId = $reminder['chat_id'];

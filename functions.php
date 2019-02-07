@@ -105,3 +105,13 @@ function checkReminders($date, $initialTime, $finalTime, $conn) {
 
     return $result;
 }
+
+function saveLog($reminders, $initialTime, $finalTime) {
+
+    $dateTime   = new DateTime();
+    $hora_atual = $dateTime->format('d/m/Y H:i:s');
+    $count      = count($reminders);
+    $log        = "Script executado as $hora_atual. ";
+    $log        .= "Lembretes encontrados das $initialTime até $finalTime: $count. \n";
+    file_put_contents('log.txt', $log, FILE_APPEND);
+}
