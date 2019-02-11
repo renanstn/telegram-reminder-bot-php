@@ -17,6 +17,13 @@ $updates    = json_decode($updates, TRUE);
 $text       = $updates['message']['text'];
 $chatId     = $updates['message']['chat']['id'];
 
+// Verificar se não é o comando getLog (uso do admin)
+if (strpos($text, '/getlog') !== false) {
+    $response = getLog();
+    sendMessage($chatId, $response);
+    die;
+}
+
 // Reconhecer os elementos chaves do lembrete
 $data       = recognizer($text);
 $response   = "";

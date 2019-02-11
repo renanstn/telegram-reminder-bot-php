@@ -115,3 +115,13 @@ function saveLog($reminders, $initialTime, $finalTime) {
     $log        .= "Lembretes encontrados das $initialTime até $finalTime: $count. \n";
     file_put_contents('log.txt', $log, FILE_APPEND);
 }
+
+function getLog($lines=40) {
+
+    $log_last_lines = "";
+    $file = file('log.txt');
+    for ($i = max(0, count($file) -$lines); $i < count($file); $i++) {
+        $log_last_lines .= $file[$i];
+    }
+    return $log_last_lines;
+}
