@@ -69,11 +69,10 @@ function saveReminder($chatId, $data, $conn) {
         VALUES (:chat_id, :data_hora, :reminder)
     ";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([
-        ':chat_id'      => $chatId,
-        ':data_hora'    => $date_time,
-        ':reminder'     => $reminder
-    ]);
+    $stmt->bindParam(':chat_id', $chatId, PDO::PARAM_STR);
+    $stmt->bindParam(':data_hora', $date_time, PDO::PARAM_STR);
+    $stmt->bindParam(':reminder', $reminder, PDO::PARAM_STR);
+    $stmt->execute();
 }
 
 function format_date_hour($date, $hour) {
@@ -111,7 +110,7 @@ function saveLog($reminders, $initialTime, $finalTime) {
     $dateTime   = new DateTime();
     $hora_atual = $dateTime->format('d/m/Y H:i:s');
     $count      = count($reminders);
-    $log        = "Script executado as $hora_atual. ";
+    $log        = "Script executado em $hora_atual. ";
     $log        .= "Lembretes encontrados das $initialTime até $finalTime: $count. \n";
     file_put_contents('log.txt', $log, FILE_APPEND);
 }
@@ -124,4 +123,40 @@ function getLog($lines=40) {
         $log_last_lines .= $file[$i];
     }
     return $log_last_lines;
+}
+
+function saveRun($conn) {
+
+    $dateTime           = new DateTime();
+    $data_hora_atual    = $dateTime->format('Y-m-d H:i:s');
+
+    $sql = "
+        INSERT INTO runs
+            (date_hour_execution) 
+        VALUES
+            (:data_hora)
+    ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':data_hora', $data_hora_atual, PDO::PARAM_STR);
+    $stmt->execute();
+}
+
+function getLastRunTime($conn) {
+
+    $sql = "
+        SELECT
+            date_hour_execution
+        FROM
+            runs
+        ORDER BY
+            id DESC
+        LIMIT 1
+    ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $result['date_hour_execution'];
 }
