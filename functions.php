@@ -128,6 +128,7 @@ function getLog($lines=40) {
 function saveRun($conn) {
 
     $dateTime           = new DateTime();
+    $data_hora_atual    = $dateTime->modify('+10 minutes');
     $data_hora_atual    = $dateTime->format('Y-m-d H:i:s');
 
     $sql = "
