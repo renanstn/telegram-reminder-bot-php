@@ -1,0 +1,25 @@
+version: "3.1"
+services:
+
+  postgres:
+    image: postgres:11.1-alpine
+    container_name: telegram-reminder-bot-postgres
+    working_dir: /application
+    volumes:
+      - .:/application
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=reminders
+    ports:
+      - "8004:5432"
+
+  php-fpm:
+    build: phpdocker/
+    container_name: telegram-reminder-bot-php-fpm
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
+    command:
+      - php src/bot.php
